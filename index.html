@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to do list</title>
+    <link rel="stylesheet" href="style.css">
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=delete" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    
+
+
+
+
+
+
+    <header class="todo_head">
+        <h1>To Do List</h1>
+    </header>
+
+
+
+
+
+
+<div class="container">
+
+    <div class="content">
+
+
+        <div class="add">
+            <h2>hey there!<br> write down here what you wanna do.</h2>
+            <textarea id="todoinput"></textarea>
+            <button id="btn">Add to list</button>
+        </div>
+
+
+        <div class="list_holder">
+
+            <div class="list_head">
+                <h3>your list</h3>
+            </div>
+
+
+            <div class="list">
+
+
+                <div class="empty">Add somthing <br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to <br> &nbsp;&nbsp;&nbsp;&nbsp;your list</div>
+
+
+
+                <!-- <div class="list_text">
+                <input type="checkbox">
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Expedita, labore quis. Ipsa consequuntur facere veniam repellendus officiis quas eligendi consectetur, totam et accusamus, expedita fugit in distinctio aperiam! Qui, iure nihil distinctio ad, consequuntur reprehenderit corporis dolores deleniti natus perferendis temporibus autem, facere odio ipsam. Dolores ratione cupiditate molestias ducimus!</p>
+                <span class="material-symbols-outlined">delete</span>
+            </div> -->
+
+            
+
+            </div>
+         
+            
+        </div>
+        
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <p>you sure you wanna delete this?</p>
+    <div class="modal-buttons">
+      <button id="confirmYes">delete</button>
+      <button id="confirmNo">cancel</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="edit_container">
+
+    <div class="edit_content">
+
+        <textarea id="edit_textarea"></textarea>
+
+        <div class="edit_btns">
+            <button id="edit_yes">edit</button>
+            <button id="edit_no">cancel</button>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+    <script src="script.js" type="text/javascript"></script>
+
+</body>
+</html>
