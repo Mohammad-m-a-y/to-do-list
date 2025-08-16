@@ -1,3 +1,60 @@
+@media (min-width: 320px) and (max-width: 425px) {
+  .todo_head {
+    justify-content: center;
+  }
+  .container .content {
+    flex-direction: column;
+    justify-content: center !important;
+    margin-bottom: 50px;
+  }
+  .container .content .add {
+    width: 90% !important;
+    margin-right: 0 !important;
+    padding: 40px 0 !important;
+  }
+  .container .content .list_holder {
+    width: 92% !important;
+    height: 565px !important;
+  }
+  .edit_container .edit_content {
+    width: 70% !important;
+    padding: 18px 0px !important;
+  }
+  .edit_container .edit_content #edit_textarea {
+    width: 90% !important;
+    margin: 15px 8px 30px 8px !important;
+  }
+}
+@media (min-width: 425px) and (max-width: 767px) {
+  .todo_head {
+    justify-content: center;
+  }
+  .container .content .add h2 {
+    width: 70% !important;
+  }
+  .container .content {
+    flex-direction: column;
+    justify-content: center !important;
+    margin-bottom: 50px;
+  }
+  .container .content .add {
+    width: 90% !important;
+    margin-right: 0 !important;
+    padding: 40px 0 !important;
+  }
+  .container .content .list_holder {
+    width: 92% !important;
+    height: 565px !important;
+  }
+  .edit_container .edit_content {
+    width: 70% !important;
+    padding: 18px 0px !important;
+  }
+  .edit_container .edit_content #edit_textarea {
+    width: 90% !important;
+    margin: 15px 8px 30px 8px !important;
+  }
+}
 * {
   margin: 0;
   padding: 0;
