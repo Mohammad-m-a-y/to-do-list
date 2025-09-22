@@ -94,9 +94,6 @@ if(text!==''){
     
     emptyf();
 
-
-}else{
-    return;
 }
 
 
