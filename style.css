@@ -59,6 +59,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-decoration: none;
 }
 
 body {
@@ -76,12 +77,68 @@ body {
   padding: 15px 30px;
   border-radius: 7px;
   margin: 10px auto 40px auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-.todo_head h1 {
+.todo_head .header_left h1 {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: #fff;
   -webkit-text-stroke: 1px rgb(255, 251, 173);
   font-style: italic;
+}
+.todo_head .header_right {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+}
+.todo_head .header_right h3 {
+  margin-left: 20px;
+  color: #6b6b6b;
+  transition: 0.2s;
+  font-size: 19px;
+  cursor: pointer;
+}
+.todo_head .header_right h3:hover {
+  transform: scale(1.1);
+  color: #fffec1;
+}
+.todo_head .header_right a {
+  color: #6b6b6b;
+  transition: 0.2s;
+  font-size: 19px;
+  cursor: pointer;
+}
+.todo_head .header_right a:hover {
+  transform: scale(1.1);
+  color: #fffec1;
+}
+.todo_head .header_right .search_box {
+  width: 50%;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  background: #fff;
+}
+.todo_head .header_right .search_box input {
+  width: 90%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 0 10px;
+  font-size: 14px;
+  color: #8c8c8c;
+}
+.todo_head .header_right .search_box #search_icon {
+  color: #8c8c8c;
+  cursor: pointer;
+  font-size: 26px;
 }
 
 .container {
@@ -162,9 +219,17 @@ body {
 .container .content .add #btn:hover {
   opacity: 0.7;
 }
-.container .content .list_holder {
+.container .content .list_holder_box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 600px;
   height: 600px;
+  border-radius: 10px;
+}
+.container .content .list_holder_box .list_holder {
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: start;
   align-items: center;
@@ -172,7 +237,7 @@ body {
   background: #7ad4a9;
   border-radius: 10px;
 }
-.container .content .list_holder .list_head {
+.container .content .list_holder_box .list_holder .list_head {
   width: 97%;
   height: 50px;
   display: flex;
@@ -182,12 +247,55 @@ body {
   border-radius: 8px;
   margin: 10px;
   background: #fff;
+  position: relative;
 }
-.container .content .list_holder .list_head h3 {
+.container .content .list_holder_box .list_holder .list_head h3 {
   font-size: 23px;
   color: #6b6b6b;
 }
-.container .content .list_holder .list {
+.container .content .list_holder_box .list_holder .list_head .show_events {
+  width: 27px;
+  height: auto;
+  cursor: pointer;
+  position: absolute;
+  top: 11px;
+  right: 3px;
+  transition: 0.1s;
+}
+.container .content .list_holder_box .list_holder .list_head .show_events:hover {
+  transform: scale(1.2);
+}
+.container .content .list_holder_box .list_holder .list_head .events_container {
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 39px;
+  right: 0px;
+  pointer-events: none;
+  z-index: 100;
+}
+.container .content .list_holder_box .list_holder .list_head .events_container .list_events {
+  width: 100%;
+  height: 100%;
+  padding: 12px 10px;
+  background: #fff;
+  border: 1px solid #cccccc;
+  border-radius: 7px;
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: 0.3s;
+}
+.container .content .list_holder_box .list_holder .list_head .events_container .list_events p {
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+  color: #4c4c4c;
+  font-size: 16px;
+}
+.container .content .list_holder_box .list_holder .list_head .events_container .list_events p:nth-child(2) {
+  margin-top: 8px;
+}
+.container .content .list_holder_box .list_holder .list {
   width: 97%;
   height: auto;
   display: flex;
@@ -197,15 +305,17 @@ body {
   margin: 15px 0;
   overflow-y: auto;
 }
-.container .content .list_holder .list .empty {
-  margin-top: 125px;
+.container .content .list_holder_box .list_holder .list .empty {
+  width: 40%;
+  height: auto;
+  margin: 125px auto 0 auto;
   font-size: 30px;
   color: #8c8c8c;
   border: 2px solid #ababab;
-  padding: 40px;
+  padding: 45px;
   border-radius: 12px;
 }
-.container .content .list_holder .list .list_text {
+.container .content .list_holder_box .list_holder .list .list_text {
   width: 97%;
   height: auto;
   display: flex;
@@ -217,7 +327,7 @@ body {
   border-radius: 7px;
   position: relative;
 }
-.container .content .list_holder .list .list_text p {
+.container .content .list_holder_box .list_holder .list .list_text p {
   width: 95%;
   height: auto;
   padding: 12px 7px;
@@ -228,11 +338,11 @@ body {
   text-align: justify;
   font-family: "Inter", sans-serif;
 }
-.container .content .list_holder .list .list_text p.checked {
+.container .content .list_holder_box .list_holder .list .list_text p.checked {
   text-decoration: line-through;
   color: #747474;
 }
-.container .content .list_holder .list .list_text .time {
+.container .content .list_holder_box .list_holder .list .list_text .time {
   font-size: 13px;
   color: #575757;
   display: block;
@@ -240,7 +350,7 @@ body {
   top: 6px;
   right: 7px;
 }
-.container .content .list_holder .list .list_text .material-icons {
+.container .content .list_holder_box .list_holder .list .list_text .material-icons {
   position: absolute;
   color: #575757;
   font-size: 17px;
@@ -248,7 +358,7 @@ body {
   bottom: 6px;
   cursor: pointer;
 }
-.container .content .list_holder .list .list_text .material-symbols-outlined {
+.container .content .list_holder_box .list_holder .list .list_text .material-symbols-outlined {
   font-size: 17px;
   position: absolute;
   bottom: 6px;
@@ -257,7 +367,15 @@ body {
   color: #656565;
 }
 
-/*-----------edit---------*/
+.list_head.events-open .list_events {
+  transform: scaleY(1) !important;
+}
+
+.list_head.events-open .events_container {
+  pointer-events: all !important;
+}
+
+/*-----------edit task---------*/
 .edit_container {
   width: 100vw;
   height: 100vh;
@@ -326,7 +444,7 @@ body {
   color: white;
 }
 
-/*----------confirm-modal------------*/
+/*----------delete task modal------------*/
 .modal {
   display: none;
   position: fixed;
@@ -366,6 +484,108 @@ body {
 }
 
 #confirmNo {
+  background-color: #7ad4a9;
+  color: white;
+}
+
+.new_list_modal_container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: none;
+}
+.new_list_modal_container .new_list_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #fff;
+  flex-direction: column;
+  border-radius: 7px;
+}
+.new_list_modal_container .new_list_content p {
+  margin-top: 20px;
+}
+.new_list_modal_container .new_list_content #new_list_input {
+  margin: 20px 40px 23px 40px;
+  outline: none;
+  border-radius: 7px;
+  border: 2px solid #cccccc;
+  padding: 10px 10px 5px 10px;
+  font-family: "Inter", sans-serif;
+  color: #4c4c4c;
+}
+.new_list_modal_container .new_list_content #new_list_input.fill {
+  border: 2px solid rgb(239, 39, 79);
+}
+.new_list_modal_container .new_list_content .new_list_btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.new_list_modal_container .new_list_content .new_list_btns button {
+  margin: 0 10px;
+  padding: 8px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.new_list_modal_container .new_list_content .new_list_btns #new_list_add {
+  background-color: #7ad4a9;
+  color: white;
+}
+.new_list_modal_container .new_list_content .new_list_btns #new_list_cancel {
+  background-color: crimson;
+  color: white;
+}
+
+.delete_list_modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.delete_list_content {
+  background: white;
+  padding: 20px 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.delete_list_buttons {
+  margin-top: 20px;
+}
+
+.delete_list_buttons button {
+  margin: 0 10px;
+  padding: 8px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#delet_list_confirm {
+  background-color: crimson;
+  color: white;
+}
+
+#delet_list_cancel {
   background-color: #7ad4a9;
   color: white;
 }/*# sourceMappingURL=style.css.map */
