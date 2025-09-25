@@ -33,6 +33,12 @@ let activeListId = lists.length ? lists[0].id : null;
 
 
 
+function saveToLocalStorage(){
+   localStorage.setItem("todoLists",JSON.stringify(lists));
+}
+
+
+
 
 //-------todoinput-size-control-------
 
@@ -67,11 +73,14 @@ let new_list_input=document.getElementById("new_list_input");
 let list_holder_box=document.querySelector(".list_holder_box");
 
 
-new_list_btn.addEventListener("click",()=>{
+new_list_btn.addEventListener("click",function(){
 
     new_list_modal_container.style.display='flex';
 
 })
+
+  
+
 
 
 new_list_add.addEventListener("click",()=>{
@@ -92,6 +101,7 @@ new_list_add.addEventListener("click",()=>{
       saveToLocalStorage();
       renderLists();
       setActiveList(list.id);
+      renderStorageLists();
 
     }
 
@@ -112,6 +122,7 @@ new_list_add.addEventListener("click",()=>{
     renderLists();
 
     setActiveList(new_list.id);
+    renderStorageLists();
 
   }
 
@@ -140,9 +151,19 @@ new_list_cancel.addEventListener("click",()=>{
 //------ render lists ----------
 
 
+
+
+
 function renderLists() {
   
   list_holder_box.innerHTML = "";
+
+
+
+  if(lists.length===0){
+    nolists();
+    return;
+  }
 
   const activeList=lists.find( l => Number(l.id)=== Number(activeListId));
   if (!activeList) return;
@@ -304,6 +325,7 @@ addbtn.addEventListener("click", function(){
     list.tasks.push(newTask);
     saveToLocalStorage();
     renderTasks(activeListId);
+    renderStorageLists();
 
     todoinput.value = '';
     todoinput.style.height = 'auto';
@@ -316,12 +338,48 @@ addbtn.addEventListener("click", function(){
 
 
 
+//------- empty list box --------
+
+let list_start=document.querySelector(".list_start");
+
+
+function nolists(){
+
+  if(lists.length===0){
+    
+     list_holder_box.innerHTML = `
+      <div class="list_start">
+        <h3>you haven't made a list yet.</h3>
+        <img class="img_list_btn" src="images/copy-book.png" alt="image">
+      </div>
+    `;
+
+  }else{
+    list_holder_box.innerHTML = ""; 
+    renderLists();
+  }
+
+
+}
+
+
+list_holder_box.addEventListener('click',e=>{
+
+  if(e.target.closest(".img_list_btn")){
+    new_list_modal_container.style.display='flex';
+  }
+
+
+})
 
 
 
 
 
-//-------delete-icon-functions--------
+
+
+
+//-------delete tasks--------
 
 
 
@@ -360,6 +418,7 @@ confirmYes.addEventListener('click',function(){
     }
 
     renderTasks(activeListId);
+    renderStorageLists();
 
     confirmModal.style.display = 'none';
     itemdelet = null;
@@ -417,17 +476,6 @@ list_holder_box.addEventListener('change',function(e){
 
 
 
-
-
-
-
-
-//-----------list-storage-----------
-
-
-function saveToLocalStorage(){
-   localStorage.setItem("todoLists",JSON.stringify(lists));
-}
 
 
 
@@ -608,11 +656,12 @@ delet_list_confirm.addEventListener("click", ()=>{
 
   saveToLocalStorage();
   renderLists();
+  renderStorageLists();
   
   if (activeListId) {
     renderTasks(activeListId);
   } else {
-    document.querySelector('.list_holder_box').innerHTML = '';
+    nolists();
   }
 
   itemdelet=null;
@@ -638,36 +687,192 @@ delet_list_cancel.addEventListener("click", ()=>{
 
 let search_icon=document.getElementById("search_icon");
 let search_input=document.getElementById("search_input");
+let suggestionsContainer = document.querySelector(".search_suggestion_continer");
+
+
+
+
+search_input.addEventListener("input",()=>{
+
+  let query = search_input.value.trim().toLowerCase();
+
+  suggestionsContainer.innerHTML="";
+
+
+  let matches = lists.filter(l => l.listname.toLowerCase().includes(query)).slice(0, 3);
+
+  if(query.length<2){
+    suggestionsContainer.style.display='none';
+    return;
+  }
+
+
+  if (matches.length === 0) {
+
+    let noResultDiv = document.createElement("div");
+    noResultDiv.className = "search_suggestion no_result";
+    noResultDiv.innerHTML = `<p>No results</p>`;
+    suggestionsContainer.appendChild(noResultDiv);
+    suggestionsContainer.style.display = "block";
+    return;
+  }
+
+
+  matches.forEach(list => {
+    let suggestionDiv = document.createElement("div");
+    suggestionDiv.className = 'search_suggestion';
+    suggestionDiv.innerHTML = `<p>${list.listname}</p>`;
+
+    suggestionDiv.addEventListener("click", () => {
+      search_input.value = list.listname;
+      activeListId = list.id;
+
+      renderLists();
+      setActiveList(list.id);
+
+      suggestionsContainer.innerHTML = "";
+      suggestionsContainer.style.display = 'none';
+      search_input.value='';
+    });
+
+    suggestionsContainer.appendChild(suggestionDiv);
+  });
+
+  suggestionsContainer.style.display = "block";
+      
+
+})
+
+
 
 
 search_icon.addEventListener("click", () => {
-  let query = search_input.value.trim().toLowerCase();
 
+  let query = search_input.value.trim().toLowerCase();
   
   if (query === "") {
     renderLists();  
     return;
   }
   
-  
   let foundList = lists.find(l => l.listname.toLowerCase().includes(query));
-
-  if (foundList) {
-
-    activeListId = foundList.id;
-    renderLists(); 
-    setActiveList(foundList.id);
-
-  } else {
   
-    renderLists(); 
-    alert('not found')  //---------- بعدا اصلاح میشه
-
+  if(foundList){
+    activeListId=foundList.id;
+    renderLists();
+    setActiveList(foundList.id);
+    suggestionsContainer.style.display='none';
+    suggestionsContainer.innerHTML = "";
+    search_input.value='';
+  }else{
+    suggestionsContainer.innerHTML = "";
+    suggestionsContainer.style.display='none';
+    search_input.value='';
   }
+
 
 });
 
 
+
+document.addEventListener("click", e => {
+
+  if(!e.target.closest(".search_box")){
+    suggestionsContainer.innerHTML = "";
+    suggestionsContainer.style.display='none';
+  }
+
+})
+
+
+
+
+
+
+
+
+
+//-------- show storage lists --------
+
+let open_list_storage=document.getElementById("open_list_storage");
+let close_list_storage=document.getElementById("close_list_storage");
+let list_storage_container=document.querySelector(".list_storage_container");
+
+open_list_storage.addEventListener("click",()=>{
+
+list_storage_container.classList.add("open");
+
+})
+
+close_list_storage.addEventListener("click",()=>{
+
+list_storage_container.classList.remove("open");
+
+})
+
+
+
+
+
+
+//------- renderStorageLists-----
+
+let list_storage_holder=document.querySelector(".list_storage_holder");
+
+
+function renderStorageLists(){
+
+  list_storage_holder.innerHTML = "";
+
+  if (lists.length === 0) {
+    list_storage_holder.innerHTML = "<p style='color:#999; padding:20px;'>No lists yet</p>";
+    return;
+  }
+
+  lists.forEach(list => {
+
+    let box=document.createElement("div");
+    box.className="list_storage_box";
+    box.dataset.id=list.id;
+
+    let tasksCount=list.tasks.length;
+    let createdAt = new Date(list.id).toLocaleDateString();
+
+    box.innerHTML=`
+    <div>
+    <h3>${list.listname}</h3>
+    <img src="images/sticky-note(1).png" alt="image">
+    </div>
+    
+    <p>Created: ${createdAt}</p>
+    <p>Tasks: ${tasksCount}</p>
+    
+    `;
+
+    // box.innerHTML=`
+    // <h3>${list.listname}</h3>
+    // <p>Created: ${createdAt}</p>
+    // <p>Tasks: ${tasksCount}</p>
+    // <img src="images/sticky-note(1).png" alt="image">
+    // `;
+
+
+    box.addEventListener("click", ()=>{
+
+      activeListId=list.id;
+      renderLists();
+      setActiveList(list.id);
+      list_storage_container.classList.remove("open");
+
+    })
+
+
+    list_storage_holder.appendChild(box);
+
+  })
+
+
+}
 
 
 
@@ -681,4 +886,7 @@ search_icon.addEventListener("click", () => {
 
 window.addEventListener('DOMContentLoaded', function () {
   renderLists();
+  renderStorageLists();
+
+  
 });

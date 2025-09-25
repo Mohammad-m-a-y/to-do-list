@@ -35,15 +35,30 @@
                     search
                 </span>
                 <input type="text" id="search_input" placeholder="search lists ...">
+
+                <div class="search_suggestion_continer">
+
+                    <!-- test -->
+
+                    <!-- <div class="search_suggestion">
+                        <p>list 2</p>
+                    </div>
+                    <div class="search_suggestion">
+                        <p>list 3</p>
+                    </div>
+                    <div class="search_suggestion">
+                        <p>list 4</p>
+                    </div> -->
+
+                </div>
+
             </div>
 
 
                  <h3 id="new_list_btn">add new list</h3>
 
             
-                <h3>
-                    <a href="listholder/listholder.html">your lists</a>
-                </h3>
+                <h3 id="open_list_storage"> your lists </h3>
             
 
         </div>
@@ -60,15 +75,28 @@
 
 
             <div class="add">
-                <h2>hey there!<br> write down here what you wanna do.</h2>
+                <h2>hey there!<br> make a list and start adding your tasks.</h2>
                 <textarea id="todoinput"></textarea>
-                <button id="btn">Add to list</button>
+                <button id="btn">Add task</button>
             </div>
 
 
             <div class="list_holder_box">
 
- <!-- here -->
+ 
+<!-- >
+                <div class="list_start">
+
+                    <h3>you haven't made a list yet.</h3>
+                    <img src="images/copy-book.png" alt="image">
+
+                </div -->
+
+
+
+
+                <!---- list holder test ------>
+
                 <!-- <div class="list_holder">
 
                 <div class="list_head">
@@ -105,7 +133,7 @@
 
             </div>  -->
 
-<!-- here -->
+
             
             </div> 
 
@@ -202,9 +230,65 @@
 
 
 
+    <!---------- list storage container --------->
 
 
-    <script src="script.js" type="text/javascript"></script> 
+    <div class="list_storage_container">
+
+        <div class="storage_head">
+            <div>
+                <h1>your lists</h1>
+            </div>
+            <div>
+                <svg id="close_list_storage" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="rgba(110,110,110,0.8)"><path d="M10.5859 12L2.79297 4.20706L4.20718 2.79285L12.0001 10.5857L19.793 2.79285L21.2072 4.20706L13.4143 12L21.2072 19.7928L19.793 21.2071L12.0001 13.4142L4.20718 21.2071L2.79297 19.7928L10.5859 12Z"></path></svg>
+            </div>
+        </div>
+
+        <div class="list_storage_content">
+
+            <div class="list_storage_holder">
+
+                <!-- <div class="list_storage_box"> -->
+                     <!-- <h3>Shopping List</h3>
+                     <p>Created: 21/09/2025</p>
+                     <p>Tasks: 5 (2 done)</p>
+                </div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div>
+                <div class="list_storage_box"></div> -->
+    
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+     <script src="script.js" type="text/javascript"></script>  
 
 </body>
 
