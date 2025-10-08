@@ -300,6 +300,11 @@ function renderTasks(listId) {
 //------- adding new task---------
 
 
+let add_list_alert=document.querySelector(".add_list_alert");
+let add_list_alert_ok=document.getElementById("add_list_alert_ok");
+
+
+
 addbtn.addEventListener("click", function(){
 
     let text = todoinput.value.trim();
@@ -307,7 +312,7 @@ addbtn.addEventListener("click", function(){
     if (text === '') return;
 
     if (!activeListId) {
-    alert('ابتدا یک لیست ایجاد یا انتخاب کنید.'); // بعدا باید اصلاح بشه
+    add_list_alert.style.display='flex';
     return;
     }  
 
@@ -334,6 +339,11 @@ addbtn.addEventListener("click", function(){
 
 })
 
+
+add_list_alert_ok.addEventListener("click",()=>{
+  add_list_alert.style.display='none';
+  todoinput.value="";
+})
 
 
 
@@ -825,7 +835,12 @@ function renderStorageLists(){
   list_storage_holder.innerHTML = "";
 
   if (lists.length === 0) {
-    list_storage_holder.innerHTML = "<p style='color:#999; padding:20px;'>No lists yet</p>";
+     list_storage_holder.innerHTML = `
+    <div class="empty_list_storage_holder">
+      <img src="images/wrong-list.png" alt="" class="empty_list_storage_holder_img">
+       <p style='color:#999; padding:20px;' class="empty_list_storage_holder_text">No lists yet</p>
+    </div>
+    `;
     return;
   }
 
@@ -841,20 +856,13 @@ function renderStorageLists(){
     box.innerHTML=`
     <div>
     <h3>${list.listname}</h3>
-    <img src="images/sticky-note(1).png" alt="image">
+    <img src="images/sticky-note(1).png" alt="image" class="list_storage_box_img">
     </div>
     
-    <p>Created: ${createdAt}</p>
-    <p>Tasks: ${tasksCount}</p>
-    
+    <p class="list_storage_box_text">Created: ${createdAt}</p>
+    <p class="list_storage_box_text">Tasks: ${tasksCount}</p>
     `;
 
-    // box.innerHTML=`
-    // <h3>${list.listname}</h3>
-    // <p>Created: ${createdAt}</p>
-    // <p>Tasks: ${tasksCount}</p>
-    // <img src="images/sticky-note(1).png" alt="image">
-    // `;
 
 
     box.addEventListener("click", ()=>{

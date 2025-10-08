@@ -553,6 +553,26 @@ body {
             box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
 
 
+            .empty_list_storage_holder{
+                @include w_h(100%, 100%);
+                @include flex(center, center);
+                flex-direction: column;
+                
+
+                .empty_list_storage_holder_img{
+                    @include w_h(300px, auto);
+                    margin-left: 20px;
+                }
+
+                .empty_list_storage_holder_text{
+                    font-size: 22px;
+                    color:#7d7d7d !important; 
+                   
+                }
+
+            }
+
+
 
 
             .list_storage_box {
@@ -581,7 +601,7 @@ body {
                 @include flex(space-between,center);
 
 
-                img{
+                .list_storage_box_img{
                 @include w_h(25px, auto);
                 margin-bottom: 10px;
             }
@@ -594,7 +614,7 @@ body {
                 margin-bottom: 10px;
             }
 
-            p {
+            .list_storage_box_text {
                 font-size: 14px;
                 color: #777;
                 margin: 3px 0;
@@ -919,6 +939,46 @@ body {
 }
 
 #delet_list_cancel {
+    background-color: $green2;
+    color: white;
+}
+
+
+
+
+
+
+
+
+//----- add list alert ------
+
+.add_list_alert{
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.add_list_alert_content{
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#add_list_alert_ok{
+    margin: 15px 10px 0 10px;
+    padding: 8px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     background-color: $green2;
     color: white;
 }
